@@ -1,0 +1,10 @@
+services:
+  userManagement:
+    image: bytesized-journey-user-management:${BYTESIZED_JOURNEY_VERSION}
+    build:
+      context: ./src/userManagement
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./src/userManagement/.env
