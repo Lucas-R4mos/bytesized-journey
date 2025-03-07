@@ -1,11 +1,12 @@
-from os import environ
 from flask import Flask
 from config import Config
+from database import create_pool
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.db = create_pool(app)
 
     return app
 
@@ -13,6 +14,6 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     app.run(
-        host=environ.get('USR_MNG_HOST'),
-        port=environ.get('USR_MNG_PORT')
+        host='0.0.0.0',
+        port=5000
     )
