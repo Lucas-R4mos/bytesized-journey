@@ -8,3 +8,14 @@ services:
       - "5000:5000"
     env_file:
       - ./src/userManagement/.env
+  userManagementDatabase:
+    image: postgres:14.17-bookworm
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./src/userManagement/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./src/userManagement/init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
+volumes:
+  pgdata:
