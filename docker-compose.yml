@@ -15,7 +15,7 @@ services:
     env_file:
       - ./src/userManagement/.env
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - userManagement:/var/lib/postgresql/data
       - ./src/userManagement/init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
 volumes:
-  pgdata:
+  userManagement:
