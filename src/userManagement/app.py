@@ -1,12 +1,16 @@
 from flask import Flask
 from config import Config
-from database import create_pool
+from database import connect_to_db
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    app.db = create_pool(app)
+    app.db = connect_to_db(app)
+
+    @app.teardown_appcontext
+    def close_app(exception):
+        app.db.close()
 
     return app
 

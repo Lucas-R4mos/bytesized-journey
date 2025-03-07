@@ -8,6 +8,8 @@ services:
       - "5000:5000"
     env_file:
       - ./src/userManagement/.env
+    depends_on:
+      - userManagementDatabase
   userManagementDatabase:
     image: postgres:14.17-bookworm
     ports:
