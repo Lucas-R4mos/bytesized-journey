@@ -1,6 +1,9 @@
 from flask import Flask
 from config import Config
-from database import connect_to_db
+from utils import (
+    connect_to_db,
+    check_empty_users_table
+)
 
 
 def create_app():
@@ -11,6 +14,13 @@ def create_app():
     @app.teardown_appcontext
     def close_app(exception):
         app.db.close()
+
+    app.status = dict(
+        allow_unauthenticated_registration=False
+    )
+
+    if check_empty_users_table(app):
+        app.status['allow_unauthenticated_registration'] = True
 
     return app
 
