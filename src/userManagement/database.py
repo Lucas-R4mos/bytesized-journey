@@ -1,7 +1,6 @@
 from flask import Flask
+from schemas import create_tables
 from psycopg_pool import ConnectionPool
-from schemas.roles import create_roles_table
-from schemas.users import create_users_table
 
 
 def connect_to_db(app: Flask):
@@ -18,7 +17,6 @@ def connect_to_db(app: Flask):
         open=True
     )
 
-    create_roles_table(pool)
-    create_users_table(pool)
+    create_tables(pool)
 
     return pool
