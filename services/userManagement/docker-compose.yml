@@ -1,0 +1,23 @@
+services:
+  userManagement:
+    image: bytesized-journey-user-management:${BYTESIZED_JOURNEY_VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - userManagementDatabase
+  userManagementDatabase:
+    image: postgres:14.17-bookworm
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - userManagement:/var/lib/postgresql/data
+      - ./init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
+volumes:
+  userManagement:
