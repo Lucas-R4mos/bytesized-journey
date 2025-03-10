@@ -1,5 +1,5 @@
 from flask import Flask
-from schemas import create_tables
+from models import create_tables
 from psycopg_pool import ConnectionPool
 
 
