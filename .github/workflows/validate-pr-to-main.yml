@@ -1,0 +1,19 @@
+name: Validate PR to Main
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Source Branch
+        run: |
+          if [ ${{ github.head_ref }} != "develop" ] && [ ${{ github.base_ref }} == "main" ]; then
+            echo "Pull requests to main branch are only allowed from develop branch."
+            exit 1
+          fi
